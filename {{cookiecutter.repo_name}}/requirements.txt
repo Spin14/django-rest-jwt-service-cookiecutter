@@ -34,4 +34,5 @@ factory-boy==2.11.1
 django-nose==1.4.5
 nose-progressive==1.5.1
 coverage==4.5.1
+codecov==2.0.15
 

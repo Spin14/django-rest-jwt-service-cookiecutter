@@ -5,9 +5,11 @@ services:
 python:
   - "3.6"
 before_script:
-  - docker-compose build
+  - make compose-build
 script:
-  - docker-compose run --rm web bash -c "flake8 . && python wait_for_postgres.py && python manage.py test"
+  - make ci
+after_script:
+  - make compose-down
 
 notifications:
   email: false

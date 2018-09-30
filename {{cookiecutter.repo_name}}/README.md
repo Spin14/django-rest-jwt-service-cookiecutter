@@ -45,7 +45,11 @@ curl -X GET 0.0.0.0:8000 \
 
 ```
 
-### 4. Enable Travis
+### 4. CI
+
+setup travis ci
+setup codecov
+set codecov env variable on travis
 
 ### 5. Initial commit
 
