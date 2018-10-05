@@ -1,9 +1,10 @@
 from os import getenv
-from django.test import TestCase
+from unittest import TestCase
+
 from jwt import encode, decode
 from cryptography.hazmat.primitives import serialization
 
-from {{cookiecutter.app_name}}.config.common import PemKeyLoader
+from utils.crypto import PemKeyLoader
 
 
 class TestJWTKeys(TestCase):

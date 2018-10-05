@@ -80,6 +80,13 @@ start-dev: ## starts development server
 	$(MAKE) compose-build
 	docker-compose up
 
+shell: 
+	$(MAKE) compose-build
+	docker-compose run --rm -p 8000:8000 web bash -c " \
+		bash \
+	"
+	$(MAKE) compose-down
+
 ci:
 	docker-compose run \
 		-e CODECOV_TOKEN=$CODECOV_TOKEN --rm web bash \

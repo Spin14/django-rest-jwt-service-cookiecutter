@@ -1,4 +1,5 @@
-DJANGO_SECRET_KEY=Local
+DJANGO_SETTINGS_MODULE={{ cookiecutter.app_name }}.settings.local
+DJANGO_SECRET_KEY=local_secret
 DJANGO_PAGINATION_LIMIT=20
 DJANGO_JWT_PRIVATE_KEY=private.key
 DJANGO_JWT_PUBLIC_KEY=public.key

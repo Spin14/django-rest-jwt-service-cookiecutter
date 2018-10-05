@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  postgres:
+  {{cookiecutter.app_name}}_postgres:
     image: postgres:9.6
     restart: always
     volumes:
@@ -26,7 +26,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - postgres
+      - {{cookiecutter.app_name}}_postgres
 
 volumes:
   pgdata:

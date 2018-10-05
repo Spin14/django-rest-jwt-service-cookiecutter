@@ -1,13 +1,11 @@
 # Core
 pytz==2018.4
 Django==2.0.6
-django-configurations==2.0
 gunicorn==19.8.1
 newrelic==3.2.2.94
 
 # For the persistence stores
 psycopg2-binary==2.7.5
-dj-database-url==0.5.0
 
 # Model Tools
 django-model-utils==3.1.2
