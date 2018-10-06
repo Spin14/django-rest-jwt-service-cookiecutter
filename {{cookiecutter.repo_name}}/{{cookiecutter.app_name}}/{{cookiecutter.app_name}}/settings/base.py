@@ -122,9 +122,9 @@ REST_FRAMEWORK = {
 
 # jwt private / public keys
 # a private key is necessary if this service is responsible for generating JWTs
-private_key = PemKeyLoader.load_private_key(os.getenv('DJANGO_JWT_PRIVATE_KEY'))
+private_key = PemKeyLoader.load_private_key(os.getenv('DJANGO_JWT_PRIVATE_KEY', ''))
 # a public key is necessary if this service needs to verify incoming JWTs
-public_key = PemKeyLoader.load_public_key(os.getenv('DJANGO_JWT_PUBLIC_KEY'))
+public_key = PemKeyLoader.load_public_key(os.getenv('DJANGO_JWT_PUBLIC_KEY', ''))
 
 # http://getblimp.github.io/django-rest-framework-jwt/#additional-settings
 JWT_AUTH = {

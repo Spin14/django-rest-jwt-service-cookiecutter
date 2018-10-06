@@ -8,3 +8,4 @@ python manage.py shell
 python manage.py dbshell
 flake8 {{cookiecutter.app_name}}
 mypy {{cookiecutter.app_name}}
+coverage run manage.py test && coverage html
