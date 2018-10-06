@@ -12,86 +12,54 @@ for line in sys.stdin:
 endef
 export PRINT_HELP_PYSCRIPT
 
-BROWSER := python -c "$$BROWSER_PYSCRIPT"
 
 help:
 	@python -c "$$PRINT_HELP_PYSCRIPT" < $(MAKEFILE_LIST)
 
-compose-build:
-	@docker-compose build
-
-compose-down:
-	@docker-compose down
-
 clean: clean-pyc clean-test ## remove all build, test, coverage and Python artifacts
 
 clean-pyc: ## remove Python file artifacts
-	$(MAKE) compose-build
-	docker-compose run web bash -c " \
-		find . -name '*.pyc' -exec rm -f {} + \
-		find . -name '*.pyo' -exec rm -f {} + \
-		find . -name '*~' -exec rm -f {} + \
-		find . -name '__pycache__' -exec rm -fr {} + \
-	"
-	$(MAKE) compose-down
+	find . | grep -E "(__pycache__|\.pyc$)" | xargs rm -rf
 
 clean-test: ## remove test and coverage artifacts
-	$(MAKE) compose-build
-	docker-compose run web bash -c " \
-		rm -fr .tox/ \
-		rm -f .coverage \
-		rm -fr htmlcov/ \
-		rm -fr .pytest_cache \
-		rm -fr .mypy_cache \
-	"
-	$(MAKE) compose-down
+	rm -f {{cookiecutter.app_name}}/.coverage \
+	rm -fr {{cookiecutter.app_name}}/htmlcov/ \
+	rm -fr .mypy_cache \
 
 create-keys: ## creates a rsa key pair
-	$(MAKE) compose-build
-	docker-compose run web bash -c " \
-		python create_keys.py \
-	"
-	$(MAKE) compose-down
+	python create_keys.py
+
+lint: # check style with flake8
+	flake8 {{cookiecutter.app_name}}
 
 type-check: ## check types with mypy
-	$(MAKE) compose-build
-	docker-compose run --rm web bash -c " \
-		mypy {{cookiecutter.app_name}} && rm -r .mypy_cache \
-	"
-	$(MAKE) compose-down
-
-lint: ## check style with flake8
-	$(MAKE) compose-build
-	docker-compose run --rm web bash -c " \
-		flake8 \
-	"
-	$(MAKE) compose-down
+	mypy {{cookiecutter.app_name}} && rm -r .mypy_cache
 
 test: # run django tests
-	$(MAKE) compose-build
-	docker-compose run web bash -c " \
-		python wait_for_postgres.py &&  \
-		python manage.py test && \
-		rm -r .coverage \
-	"
-	$(MAKE) compose-down
+	cd {{cookiecutter.app_name}} && python manage.py test -v 2 && cd ..
 
-start-dev: ## starts development server
-	$(MAKE) compose-build
-	docker-compose up
+coverage: # run django tests with coverage
+	cd {{cookiecutter.app_name}} && coverage run manage.py test -v 2 && coveraget html && cd ..
 
-shell: 
-	$(MAKE) compose-build
-	docker-compose run --rm -p 8000:8000 web bash -c " \
-		bash \
-	"
-	$(MAKE) compose-down
+tests:
+	$(MAKE) lint
+	$(MAKE) type-check
+	$(MAKE) test
 
-ci:
+start-dev: # start development containers
+	docker-compose build
+	docker-compose run --rm -p 8000:8000 web bash -c "bash"
+	docker-compose down
+
+ci-script:
 	docker-compose run \
 		-e CODECOV_TOKEN=$CODECOV_TOKEN --rm web bash \
 		-c " \
-			flake8 . && \
-			mypy {{cookiecutter.app_name}} && rm -r .mypy_cache \
-			python wait_for_postgres.py && python manage.py test && codecov \
+			flake8 {{cookiecutter.app_name}} && \
+			mypy {{cookiecutter.app_name}} && \
+			python wait_for_postgres.py && \
+			cd {{cookiecutter.app_name}} && \
+			coverage run python manage.py test v-2 && \
+			codecov html && \
+			codecov \
 		"

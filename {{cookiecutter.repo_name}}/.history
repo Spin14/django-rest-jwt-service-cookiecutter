@@ -4,8 +4,8 @@ python manage.py showmigrations
 python manage.py diffsettings
 python manage.py runserver
 python manage.py test
-python manage.py shell
 python manage.py dbshell
+python manage.py shell
 flake8 {{cookiecutter.app_name}}
 mypy {{cookiecutter.app_name}}
-coverage run manage.py test && coverage html
+coverage run manage.py test -v 2 && coverage html

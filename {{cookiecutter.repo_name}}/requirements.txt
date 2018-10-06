@@ -1,6 +1,6 @@
 # Core
 pytz==2018.4
-Django==2.0.6
+Django==2.0.8
 gunicorn==19.8.1
 newrelic==3.2.2.94
 
@@ -23,15 +23,10 @@ cryptography
 # Developer Tools
 ipdb==0.11
 ipython==6.4.0
-mkdocs==0.17.4
-flake8==3.5.0
-mypy==0.630
 
 # Testing
-mock==2.0.0
-factory-boy==2.11.1
-django-nose==1.4.5
-nose-progressive==1.5.1
+flake8==3.5.0
+mypy==0.630
 coverage==4.5.1
 codecov==2.0.15
 
