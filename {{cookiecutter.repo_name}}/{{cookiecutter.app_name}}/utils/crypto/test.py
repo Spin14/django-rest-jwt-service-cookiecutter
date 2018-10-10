@@ -22,7 +22,13 @@ class TestJWTKeys(TestCase):
                 os.remove(os.path.join(self.FIXTURES_DIR, filename))
 
     def test_crypto_creator(self):
-        private_key_path, public_key_path = PemKeyCreator.create_key_pair()
+        self.assertEqual(os.listdir(self.FIXTURES_DIR), [])
+        private_key_path, public_key_path = PemKeyCreator.create_key_pair(self.FIXTURES_DIR)
+
+        self.assertEqual(os.listdir(self.FIXTURES_DIR), [
+            'private.key',
+            'public.key'
+        ])
 
         self.assertTrue(os.path.isfile(private_key_path))
         self.assertTrue(os.path.isfile(public_key_path))
@@ -35,7 +41,7 @@ class TestJWTKeys(TestCase):
         self.assertIsNone(public_key)
 
     def test_crypto_loader(self):
-        private_key_path, public_key_path = PemKeyCreator.create_key_pair()
+        private_key_path, public_key_path = PemKeyCreator.create_key_pair(self.FIXTURES_DIR)
 
         private_key = PemKeyLoader.load_private_key(private_key_path)
         public_key = PemKeyLoader.load_public_key(public_key_path)
