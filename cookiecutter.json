@@ -1,6 +1,6 @@
 {
-    "repo_name": "foothub-service_name",
-    "app_name": "foothub_service_name",
+    "repo_name": "my-service",
+    "app_name": "my_app",
     "email": "acci.valverde@gmail.com",
     "description": "Rest Api Service"
 }

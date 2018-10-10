@@ -9,3 +9,4 @@ python manage.py shell
 flake8 {{cookiecutter.app_name}}
 mypy {{cookiecutter.app_name}}
 coverage run manage.py test -v 2 && coverage html
+pip freeze

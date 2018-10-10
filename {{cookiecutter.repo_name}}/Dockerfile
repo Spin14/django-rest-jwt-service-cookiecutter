@@ -1,17 +1,13 @@
 FROM python:3.6
 ENV PYTHONUNBUFFERED 1
 
-# Allows docker to cache installed dependencies between builds
-COPY ./requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+RUN pip3.6 install pipenv
 
-# Adds our application code to the image
 COPY . code
 WORKDIR /code
-
+RUN pipenv install --system --dev
 EXPOSE 8000
 
 # Migrates the database, uploads staticfiles, and runs the production server
 CMD python manage.py migrate && \
-    python manage.py collectstatic --noinput && \
-    newrelic-admin run-program gunicorn --bind 0.0.0.0:8000 --access-logfile - {{cookiecutter.app_name}}.wsgi:application
+    gunicorn --bind 0.0.0.0:8000 --access-logfile - {{cookiecutter.app_name}}.wsgi:application

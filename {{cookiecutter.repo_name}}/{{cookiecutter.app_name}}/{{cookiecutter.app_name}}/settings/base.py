@@ -20,14 +20,7 @@ WSGI_APPLICATION = '{{ cookiecutter.app_name }}.wsgi.application'
 
 # https://docs.djangoproject.com/en/2.1/ref/settings/#installed-apps
 INSTALLED_APPS = [
-    # django apps
-
-    # Third party apps
     'rest_framework',  # utilities for rest apis
-    'django_filters',  # for filtering rest endpoints
-
-    # Your apps
-
 ]
 
 # https://docs.djangoproject.com/en/2.0/topics/http/middleware/
@@ -128,10 +121,8 @@ public_key = PemKeyLoader.load_public_key(os.getenv('DJANGO_JWT_PUBLIC_KEY', '')
 
 # http://getblimp.github.io/django-rest-framework-jwt/#additional-settings
 JWT_AUTH = {
-
     'JWT_ALLOW_REFRESH': True,
     'JWT_PRIVATE_KEY': private_key,
     'JWT_PUBLIC_KEY': public_key,
     'JWT_ALGORITHM': 'RS256'
-
 }
