@@ -1,6 +1,6 @@
 [run]
 branch = True
 
-source = app, utils
+source = {{cookiecutter.app_name}}, utils
 
 omit = *migrations*, *urls*, *test*, *wsgi.py

@@ -81,7 +81,7 @@ USE_I18N = False
 USE_L10N = True
 
 # https://docs.djangoproject.com/en/2.1/ref/settings/#use-tz
-USE_TZ = True
+USE_TZ = False
 
 # https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
@@ -119,6 +119,12 @@ private_key = PemKeyLoader.load_private_key(os.getenv('DJANGO_JWT_PRIVATE_KEY', 
 # a public key is necessary if this service needs to verify incoming JWTs
 public_key = PemKeyLoader.load_public_key(os.getenv('DJANGO_JWT_PUBLIC_KEY', ''))
 
+# enable if this service will be creating jwts
+# assert private_key is not None, 'Private Key not found' 
+
+assert public_key is not None, 'Public Key not found'
+
+
 # http://getblimp.github.io/django-rest-framework-jwt/#additional-settings
 JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True,
@@ -126,3 +132,6 @@ JWT_AUTH = {
     'JWT_PUBLIC_KEY': public_key,
     'JWT_ALGORITHM': 'RS256'
 }
+
+# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-user-model
+# AUTH_USER_MODEL = None
