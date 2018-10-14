@@ -83,4 +83,4 @@ you can:
 
 
 
-Bootstrapped with https://github.com/Spin14/django-rest-jwt-service-template.git
+Bootstrapped with https://github.com/Spin14/django-rest-jwt-service-cookiecutter.git
