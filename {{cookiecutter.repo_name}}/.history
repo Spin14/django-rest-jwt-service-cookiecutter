@@ -10,3 +10,8 @@ flake8 {{cookiecutter.app_name}}
 mypy {{cookiecutter.app_name}}
 coverage run manage.py test -v 2 && coverage html
 pip freeze
+make test
+make coverage
+make lint
+make type-check
+make tests

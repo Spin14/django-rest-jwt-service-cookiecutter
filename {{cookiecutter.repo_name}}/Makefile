@@ -39,7 +39,7 @@ test: # run django tests
 	cd {{cookiecutter.app_name}} && python manage.py test -v 2 && cd ..
 
 coverage: # run django tests with coverage
-	cd {{cookiecutter.app_name}} && coverage run manage.py test -v 2 && coveraget html && cd ..
+	cd {{cookiecutter.app_name}} && coverage run manage.py test -v 2 && coverage html && cd ..
 
 tests:
 	$(MAKE) lint
