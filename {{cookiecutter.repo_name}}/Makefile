@@ -50,16 +50,3 @@ start-dev: # start development containers
 	docker-compose build
 	docker-compose run --rm -p 8000:8000 web bash -c "bash"
 	docker-compose down
-
-ci-script:
-	docker-compose run \
-		-e CODECOV_TOKEN=$CODECOV_TOKEN --rm web bash \
-		-c " \
-			flake8 {{cookiecutter.app_name}} && \
-			mypy {{cookiecutter.app_name}} && \
-			python wait_for_postgres.py && \
-			cd {{cookiecutter.app_name}} && \
-			coverage run python manage.py test v-2 && \
-			codecov html && \
-			codecov \
-		"

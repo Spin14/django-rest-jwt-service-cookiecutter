@@ -1,22 +1,7 @@
 from django.urls import path
 
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework.status import HTTP_200_OK
-from rest_framework.permissions import AllowAny
-
-
-class HelloWorld(APIView):
-    http_method_names = ['get']
-    permission_classes = (AllowAny, )
-
-    def get(self, request, *args, **kwargs):
-        return Response(
-            status=HTTP_200_OK,
-            data={'detail': "Hello {{cookiecutter.email}}! Welcome to {{cookiecutter.app_name}}"},
-            content_type='application/json')
-
+from {{cookiecutter.app_name}}.views import status_view
 
 urlpatterns = [
-    path('', HelloWorld.as_view()),
+    path('', status_view),
 ]

@@ -1,4 +1,5 @@
 import os
+import datetime
 
 from utils.crypto import PemKeyLoader
 
@@ -121,7 +122,7 @@ private_key = PemKeyLoader.load_private_key(os.getenv('DJANGO_JWT_PRIVATE_KEY', 
 public_key = PemKeyLoader.load_public_key(os.getenv('DJANGO_JWT_PUBLIC_KEY', ''))
 
 # enable if this service will be creating jwts
-# assert private_key is not None, 'Private Key not found' 
+# assert private_key is not None, 'Private Key not found'
 
 assert public_key is not None, 'Public Key not found'
 
@@ -136,3 +137,6 @@ JWT_AUTH = {
 
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-user-model
 # AUTH_USER_MODEL = None
+
+# custom
+START_DATETIME = datetime.datetime.now()
