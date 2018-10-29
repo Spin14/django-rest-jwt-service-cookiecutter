@@ -27,7 +27,7 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr .mypy_cache \
 
 create-keys: ## creates a rsa key pair
-	python create_keys.py
+	cd {{cookiecutter.app_name}} && j-crypto-create-pair {{cookiecutter.app_name}} && cd ..
 
 lint: # check style with flake8
 	flake8 {{cookiecutter.app_name}}
