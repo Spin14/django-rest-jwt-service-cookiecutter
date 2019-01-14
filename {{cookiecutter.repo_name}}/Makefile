@@ -28,23 +28,34 @@ clean-test: ## remove test and coverage artifacts
 
 create-keys: ## creates a rsa key pair
 	cd {{cookiecutter.app_name}} && j-crypto-create-pair {{cookiecutter.app_name}} && cd ..
-
 lint: # check style with flake8
 	flake8 {{cookiecutter.app_name}}
 
 type-check: ## check types with mypy
 	mypy {{cookiecutter.app_name}} && rm -r .mypy_cache
 
-test: # run django tests
-	cd {{cookiecutter.app_name}} && python manage.py test -v 2 && cd ..
+migrations-check: # checks models consistency
+	cd {{cookiecutter.app_name}} && python manage.py makemigrations --check --dry-run && cd ..
 
-coverage: # run django tests with coverage
+test: # run django tests with coverage
 	cd {{cookiecutter.app_name}} && coverage run manage.py test -v 2 && coverage html && cd ..
 
-tests:
+migrations-check: # checks models consistency
+	cd {{cookiecutter.app_name}} && python manage.py makemigrations --check --dry-run && cd ..
+
+codecov:
+	cd {{cookiecutter.app_name}} && codecov
+
+run-tests:
 	$(MAKE) lint
 	$(MAKE) type-check
+	$(MAKE) migrations-check
 	$(MAKE) test
+
+run-ci:
+	$(MAKE) create-keys
+	$(MAKE) run-tests
+	$(MAKE) codecov
 
 start-dev: # start development containers
 	docker-compose build
