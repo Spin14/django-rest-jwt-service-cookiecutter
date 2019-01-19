@@ -28,6 +28,7 @@ clean-test: ## remove test and coverage artifacts
 
 create-keys: ## creates a rsa key pair
 	cd {{cookiecutter.app_name}} && j-crypto-create-pair {{cookiecutter.app_name}} && cd ..
+
 lint: # check style with flake8
 	flake8 {{cookiecutter.app_name}}
 
@@ -39,9 +40,6 @@ migrations-check: # checks models consistency
 
 test: # run django tests with coverage
 	cd {{cookiecutter.app_name}} && coverage run manage.py test -v 2 && coverage html && cd ..
-
-migrations-check: # checks models consistency
-	cd {{cookiecutter.app_name}} && python manage.py makemigrations --check --dry-run && cd ..
 
 codecov:
 	cd {{cookiecutter.app_name}} && codecov
